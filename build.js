@@ -2,7 +2,9 @@ var metalsmith  = require("metalsmith")
     , jade      = require("metalsmith-jade")
 
 metalsmith(__dirname)
-  .use(jade())
+  .use(jade({
+    pretty: true
+  }))
 
   .source("src")
   .destination("public")
