@@ -5,4 +5,8 @@ html(lang="en")
   body
     h1= page_title
 
+    ul
+      for post in collections.posts
+        li= post.title
+
     div!= contents

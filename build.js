@@ -1,21 +1,27 @@
 var metalsmith  = require("metalsmith")
-    , jade      = require("metalsmith-jade")
     , markdown  = require("metalsmith-markdown")
     , templates = require("metalsmith-templates")
+    , collections  = require("metalsmith-collections")
 
 metalsmith(__dirname)
-  .use(jade({
-    pretty: true
+  .source("src")
+  .destination("public")
+
+  .use(collections({
+    posts: {
+      pattern: "src/posts/*.md",
+      sortBy: "date",
+      reverse: true
+    }
   }))
+
   .use(markdown())
+
   .use(templates({
     engine: "jade",
     directory: "src/templates"
   }))
 
-  .source("src")
-  .destination("public")
-
   .build(function(err) {
-        if (err) throw err;
-    });
+    if (err) throw err;
+  });
