@@ -2,6 +2,7 @@ var metalsmith  = require("metalsmith")
     , markdown  = require("metalsmith-markdown")
     , templates = require("metalsmith-templates")
     , collections  = require("metalsmith-collections")
+    , permalinks = require("metalsmith-permalinks")
 
 metalsmith(__dirname)
   .source("src")
@@ -16,6 +17,10 @@ metalsmith(__dirname)
   }))
 
   .use(markdown())
+
+  .use(permalinks({
+    pattern: ':title'
+  }))
 
   .use(templates({
     engine: "jade",
