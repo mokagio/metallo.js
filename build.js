@@ -3,6 +3,7 @@ var metalsmith  = require("metalsmith")
     , templates = require("metalsmith-templates")
     , collections  = require("metalsmith-collections")
     , permalinks = require("metalsmith-permalinks")
+    , branch = require("metalsmith-branch")
 
 metalsmith(__dirname)
   .source("src")
@@ -18,14 +19,16 @@ metalsmith(__dirname)
 
   .use(markdown())
 
-  .use(permalinks({
-    pattern: ':title'
-  }))
-
   .use(templates({
     engine: "jade",
     directory: "src/templates"
   }))
+
+  .use(branch("posts/*.html")
+    .use(permalinks({
+        pattern: 'blog/:slug'
+    }))
+  )
 
   .build(function(err) {
     if (err) throw err;
