@@ -45,10 +45,18 @@ metalsmith(__dirname)
 function paginator(files, metalsmith, done) {
   var posts = metalsmith.data.posts;
 
-  console.log(files);
-  console.log(posts);
-  console.log(metalsmith);
-  console.log(metalsmith.metadata.posts);
+  // console.log(posts);
+
+  var pages = [];
+  var postsPerPage = 2;
+
+  var numberOfPages = Math.ceil(posts.length / postsPerPage);
+  for (var i = 0; i < numberOfPages; i++) {
+    pages.push( posts.slice((postsPerPage * i), ((postsPerPage * i) + postsPerPage)) );
+  }
+
+  console.log(pages);
+  console.log("Built an array of " + pages.length + " pages, with " + postsPerPage + " items per page. Last page has " + pages[numberOfPages - 1].length + " items");
 
   done();
 }
