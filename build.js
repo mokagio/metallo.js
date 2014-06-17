@@ -9,6 +9,10 @@ metalsmith(__dirname)
   .source("src")
   .destination("public")
 
+  .use(markdown())
+
+  // important: collections must be set before templates
+  // or the templates won't have the variables and crash
   .use(collections({
     posts: {
       pattern: "src/posts/*.md",
@@ -16,14 +20,13 @@ metalsmith(__dirname)
       reverse: true
     }
   }))
-
-  .use(markdown())
-
   .use(templates({
     engine: "jade",
     directory: "src/templates"
   }))
 
+  // note that the pattern filters the files in the source folder
+  // unlike the one in collections that uses the root
   .use(branch("posts/*.html")
     .use(permalinks({
         pattern: 'blog/:slug'
@@ -32,4 +35,5 @@ metalsmith(__dirname)
 
   .build(function(err) {
     if (err) throw err;
-  });
+  }
+);
