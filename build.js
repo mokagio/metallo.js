@@ -5,6 +5,7 @@ var metalsmith  = require("metalsmith")
     , permalinks = require("metalsmith-permalinks")
     , branch = require("metalsmith-branch")
     , ignore = require("metalsmith-ignore")
+;
 
 metalsmith(__dirname)
   .source("src")
@@ -18,7 +19,7 @@ metalsmith(__dirname)
   // or the templates won't have the variables and crash
   .use(collections({
     posts: {
-      pattern: "src/posts/*.md",
+      pattern: "posts/*",
       sortBy: "date",
       reverse: true
     }
