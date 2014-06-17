@@ -24,6 +24,7 @@ metalsmith(__dirname)
       reverse: true
     }
   }))
+  .use(paginator)
   .use(templates({
     engine: "jade",
     directory: "src/templates"
@@ -41,3 +42,15 @@ metalsmith(__dirname)
     if (err) throw err;
   }
 );
+
+
+function paginator(files, metalsmith, done) {
+  var posts = metalsmith.data.posts;
+
+  console.log(files);
+  console.log(posts);
+  console.log(metalsmith);
+  console.log(metalsmith.metadata.posts);
+
+  done();
+}
