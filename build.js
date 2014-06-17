@@ -4,10 +4,13 @@ var metalsmith  = require("metalsmith")
     , collections  = require("metalsmith-collections")
     , permalinks = require("metalsmith-permalinks")
     , branch = require("metalsmith-branch")
+    , ignore = require("metalsmith-ignore")
 
 metalsmith(__dirname)
   .source("src")
   .destination("public")
+
+  .use(ignore("templates/*"))
 
   .use(markdown())
 
