@@ -13,8 +13,6 @@ metalsmith(__dirname)
 
   .use(ignore("templates/*"))
 
-  .use(markdown())
-
   // important: collections must be set before templates
   // or the templates won't have the variables and crash
   .use(collections({
@@ -24,17 +22,21 @@ metalsmith(__dirname)
       reverse: true
     }
   }))
-  .use(paginator)
-  .use(templates({
-    engine: "jade",
-    directory: "src/templates"
-  }))
+
+  .use(markdown())
 
   .use(branch("posts/*.html")
     .use(permalinks({
         pattern: 'blog/:slug'
     }))
   )
+
+  .use(paginator)
+
+  .use(templates({
+    engine: "jade",
+    directory: "src/templates"
+  }))
 
   .build(function(err) {
     if (err) throw err;
@@ -43,9 +45,10 @@ metalsmith(__dirname)
 
 
 function paginator(files, metalsmith, done) {
+  /*
+   * mokagio's version
+   *
   var posts = metalsmith.data.posts;
-
-  // console.log(posts);
 
   var pages = [];
   var postsPerPage = 2;
@@ -57,6 +60,40 @@ function paginator(files, metalsmith, done) {
 
   console.log(pages);
   console.log("Built an array of " + pages.length + " pages, with " + postsPerPage + " items per page. Last page has " + pages[numberOfPages - 1].length + " items");
+
+  var index = files['index.md'];
+  index.posts = pages[0];
+  */
+
+  // lsjroberts version
+  var index = files['index.html']
+      posts = metalsmith.data.posts,
+      perPage = 2;
+
+  index.posts = posts.slice(0,perPage);
+  index.currentPage = 1;
+  index.numPages = Math.ceil(posts.length / perPage);
+  index.pagination = [];
+
+  for (var i = 1; i <= index.numPages; i++) {
+      index.pagination.push({
+          num: i,
+          url: (1 == i) ? '/' : '/index/' + i
+      });
+
+      if (i > 1) {
+          files['index/' + i + '/index.html'] = {
+              template: 'posts_list.jade',
+              mode: '0644',
+              contents: '',
+              title: 'Page ' + i + ' of ' + index.numPages,
+              posts: posts.slice((i-1) * perPage, ((i-1) * perPage) + perPage),
+              currentPage: i,
+              numPages: index.numPages,
+              pagination: index.pagination,
+          }
+      }
+  }
 
   done();
 }
