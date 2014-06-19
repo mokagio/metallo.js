@@ -1,8 +1,5 @@
 extends page
 
 block contents
-  ul
-    for post in collections.posts
-      li= post.title
-
+  include _posts_list
   include _pagination
