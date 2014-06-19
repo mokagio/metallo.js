@@ -2,11 +2,4 @@ ul
   for post in posts
     li= post.title
 
-p
-  - var prev = parseInt(currentPage - 2)
-  if (prev >= 0)
-    a(href="#{pagination[prev].url}") previous
-p
-  - var next = parseInt(currentPage)
-  if (next < numPages)
-    a(href="#{pagination[next].url}") next
+include _pagination

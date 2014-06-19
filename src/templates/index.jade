@@ -1,12 +1,8 @@
-doctype html
-html(lang="en")
-  head
-    title mokacoding
-  body
-    h1= page_title
+extends page
 
-    ul
-      for post in collections.posts
-        li= post.title
+block contents
+  ul
+    for post in collections.posts
+      li= post.title
 
-    div!= contents
+  include _pagination
