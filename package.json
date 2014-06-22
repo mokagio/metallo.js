@@ -17,5 +17,9 @@
     "metalsmith-permalinks": "~0.3.2",
     "metalsmith-branch": "0.0.4",
     "metalsmith-ignore": "~0.1.2"
+  },
+  "devDependencies": {
+    "http-server": "~0.6.1",
+    "node-watch": "~0.3.4"
   }
 }
