@@ -1,12 +1,14 @@
-div#pagination
+#paginator
 
   - var prev = parseInt(currentPage - 2)
+  - var next = parseInt(currentPage)
+
   if prev >= 0
     a(href="#{pagination[prev].url}") previous
 
   if prev >= 0 && next < numPages
-    | |
-    
-  - var next = parseInt(currentPage)
+    span.primary-color.
+      &nbsp;|&nbsp;  
+  
   if next < numPages
     a(href="#{pagination[next].url}") next

@@ -6,14 +6,19 @@ html(lang="en")
     link(href="/css/style.css", rel="stylesheet")
     link(href="/css/syntax-native.css", rel="stylesheet")
   body
-    h1 mokacoding
-    p mokagio's blabbering on software
+    .page
+      .row-12
+        .col-12.header
+          h1.brand
+            a(href="/") mokacoding
+          .punchline mokagio's blabbering on software
 
-    block contents
+        .col-12
+          block contents
 
-    div.footer
-      | made with &hearts; by mokagio since 2013 
-      | &nbsp;- twitter:&nbsp;
-      a(href="https://twitter.com/mokagio") @mokagio
-      | &nbsp;- github:&nbsp;
-      a(href="https://github.com/mokagio") mokagio
+        .col-12.footer
+          | made with &hearts; by mokagio since 2013 
+          | &nbsp;- twitter:&nbsp;
+          a(href="https://twitter.com/mokagio") @mokagio
+          | &nbsp;- github:&nbsp;
+          a(href="https://github.com/mokagio") mokagio
