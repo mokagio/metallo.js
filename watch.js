@@ -6,7 +6,7 @@ function puts(error, stdout, stderr) {
 	if (stderr) { console.log(stderr); }
 }
 
-watch('src', function(filename) {
+watch(['build.js', 'src'], function(filename) {
 	console.log(filename, 'changed. Re-buildind...');
 	exec("node build.js", puts);  
 });
