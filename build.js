@@ -68,7 +68,7 @@ function paginator(files, metalsmith, done) {
   // lsjroberts version
   var index = files['index.html']
       posts = metalsmith.data.posts,
-      perPage = 2;
+      perPage = 1;
 
   index.posts = posts.slice(0,perPage);
   index.currentPage = 1;
