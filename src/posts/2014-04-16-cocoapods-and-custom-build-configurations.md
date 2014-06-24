@@ -79,7 +79,7 @@ We need to make the Pods aware of what we set in our target. There are two ways 
 
 If your Pods folder is under version control just set them in the Pods target that uses them in the same way you did for your target.
 
-<img src="{{ site.url }}/assets/2014-04-16/linked-libraries.jpg" />
+<img src="/assets/2014-04-16/linked-libraries.jpg" />
 
 Git (_your using git right?!_) will remember the settings forever.
 

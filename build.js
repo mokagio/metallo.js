@@ -38,15 +38,26 @@ metalsmith(__dirname)
 
   .use(paginator)
 
-  .use(templates({
-    engine: "jade",
-    directory: "src/templates"
-  }))
+  // temp fix for metalsmith-template corrupting images
+  // see https://github.com/segmentio/metalsmith/issues/60 and https://github.com/segmentio/metalsmith-templates/issues/17
+  .use(branch(filterImages)
+    .use(templates({
+      engine: "jade",
+      directory: "src/templates"
+    }))
+  )
 
   .build(function(err) {
     if (err) throw err;
   }
 );
+
+function filterImages(filename, properties, index) {
+  var extension = filename.split('.').pop().toLowerCase();
+  var imageExtensions = [ "jpg", "jpeg", "png" ];
+  var notAnImage = imageExtensions.indexOf(extension) == -1;
+  return notAnImage;
+}
 
 
 function paginator(files, metalsmith, done) {
