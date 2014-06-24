@@ -23,7 +23,12 @@ metalsmith(__dirname)
     }
   }))
 
-  .use(markdown())
+  .use(markdown({
+    highlight: function (code) {
+      return require('highlight.js').highlightAuto(code).value;
+    },
+    langPrefix: 'hljs '
+  }))
 
   .use(branch("posts/*.html")
     .use(permalinks({
