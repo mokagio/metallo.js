@@ -1,4 +1,4 @@
 .post-container
   h2.post-title= post.title
-  p#post-date= "TODO"
+  p#post-date= post.date.toDateString()
   .post!= post.contents
