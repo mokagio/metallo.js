@@ -1,3 +1,5 @@
+// A lot of this is taken form https://github.com/lsjroberts/gelatin-design/blob/master/build.js
+
 var metalsmith  = require("metalsmith")
     , markdown  = require("metalsmith-markdown")
     , templates = require("metalsmith-templates")
