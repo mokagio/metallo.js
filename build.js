@@ -90,7 +90,7 @@ function paginator(files, metalsmith, done) {
   */
 
   // lsjroberts version
-  var index = files['index.html']
+  var index = files['index.html'],
       posts = metalsmith.data.posts,
       perPage = 1;
 
@@ -115,7 +115,7 @@ function paginator(files, metalsmith, done) {
               currentPage: i,
               numPages: index.numPages,
               pagination: index.pagination,
-          }
+          };
       }
   }
 
