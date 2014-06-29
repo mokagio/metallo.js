@@ -1,4 +1,5 @@
 .post-container
-  h2.post-title= post.title
+  h2.post-title
+    a(href="/" + post.path)= post.title
   p#post-date= post.date.toDateString()
   .post!= post.contents
