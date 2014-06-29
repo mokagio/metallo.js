@@ -107,7 +107,7 @@ function paginator(files, metalsmith, done) {
 
       if (i > 1) {
           files['index/' + i + '/index.html'] = {
-              template: 'posts_list.jade',
+              template: 'index.jade',
               mode: '0644',
               contents: '',
               title: 'Page ' + i + ' of ' + index.numPages,
