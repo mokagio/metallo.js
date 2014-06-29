@@ -36,6 +36,12 @@ metalsmith(__dirname)
     .use(permalinks({
         pattern: 'blog/:slug'
     }))
+    .use(function (files, metalsmith, done) {
+      for (var file in files) {
+        files[file].template = 'post.jade';
+      }
+      done();
+    })
   )
 
   .use(paginator)
