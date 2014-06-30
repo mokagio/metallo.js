@@ -91,8 +91,30 @@ function paginator(files, metalsmith, done) {
 
   // lsjroberts version
   var index = files['index.html'],
-      posts = metalsmith.data.posts,
+      original_posts = metalsmith.data.posts,
       perPage = 1;
+
+  // hack for rendering of multiple templates.
+  //
+  // if we push the original post object in the pagination array, when it comes to render the pagination view jade is gonna render
+  // first the pagination, which extends the base template, then when it comes to the post it's gonna render the post as it's own
+  // page extending the base template as well, this means that we're gonna end up with a weird page inside the page.
+  //
+  // i'm sure that to avoid it there must be some option to pass to the jade compiler, but i haven't find it yet.
+  //
+  // what we do here is manually copy (by value) the posts array in order to be able to reset the template of the object that will
+  // go in the pagination array, without changing the original one.
+  posts = [];
+  for (var i = 0; i < original_posts.length; i++) {
+    original_post = original_posts[i];
+    post = {};
+    for (var key in original_post) {
+      if (key != 'template') {
+        post[key] = original_post[key];
+      }
+    }
+    posts.push(post);
+  }
 
   index.posts = posts.slice(0,perPage);
   index.currentPage = 1;
