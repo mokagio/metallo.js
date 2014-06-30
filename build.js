@@ -45,6 +45,7 @@ metalsmith(__dirname)
   )
 
   .use(paginator)
+  .use(tagList)
 
   // temp fix for metalsmith-template corrupting images
   // see https://github.com/segmentio/metalsmith/issues/60 and https://github.com/segmentio/metalsmith-templates/issues/17
@@ -139,6 +140,36 @@ function paginator(files, metalsmith, done) {
               pagination: index.pagination,
           };
       }
+  }
+
+  done();
+}
+
+function tagList(files, metalsmith, done) {
+  var tags = {};
+
+  for (var post in metalsmith.data.posts) {
+      for (var t in metalsmith.data.posts[post].tags) {
+          tag = metalsmith.data.posts[post].tags[t];
+          if (! tags[tag]) {
+              tags[tag] = [];
+          }
+
+          tags[tag].push(metalsmith.data.posts[post]);
+      }
+  }
+
+  for (var tag in tags) {
+    path = 'tag/' + tag + '/index.html';
+    files[path] = {
+      template: 'tag-index.jade',
+      mode: '0644',
+      contents: '',
+      title: "Posts tagged '" + tag + "'",
+      posts: tags[tag],
+      tag: tag,
+      path: path,
+    };
   }
 
   done();

@@ -1,0 +1,11 @@
+extends page
+
+block contents
+  h1
+    a(href=path)= "Posts tagged \"" + tag + "\""
+
+  for post in posts
+    .post-container
+      h2.post-title
+        a(href="/" + post.path)= post.title
+      p#post-date= post.date.toDateString()

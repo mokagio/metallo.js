@@ -43,11 +43,15 @@ h3 {
     padding: 1.666em 0 0; }
   .post-container h3 {
     padding: 1.444em 0 0; }
-  .post-container #post-date {
-    color: #838383;
+  .post-container p#post-meta {
     margin-top: 0;
     margin-bottom: 42px;
     font-size: 0.8em; }
+    .post-container p#post-meta span#post-date {
+      color: #838383; }
+    .post-container p#post-meta a.post-tag {
+      display: inline-block;
+      margin-left: 6px; }
   .post-container p {
     margin: 1.5em 0;
     line-height: 1.5em; }
